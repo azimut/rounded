@@ -23,13 +23,43 @@ const Links = () => {
   if (links.length === 0) {
     return <p>No links found.</p>;
   }
-
   return (
-    <div className="container">
-      <ul>
+    <div>
+      <form>
+        <input
+          name=""
+          type="text"
+          value=""
+          className="
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded"
+        />
+        <button
+          className="
+          px-2 py-1
+          bg-blue-600
+          text-white
+          uppercase
+          rounded
+          shadow-md
+          text-xs"
+        >
+          Go
+        </button>
+      </form>
+      <ul className="flex flex-col">
         {links.map((link, i) => (
           <li key={i}>
-            <a href={link.Link} rel="noreferrer noopener" target="_blank">
+            <a
+              className="text-blue-600 visited:text-purple-600 hover:text-blue-700 transition duration-300 ease-in-out"
+              href={link.Link}
+              rel="noreferrer noopener"
+              target="_blank"
+            >
               {link.Link}
             </a>
           </li>
