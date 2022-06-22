@@ -57,7 +57,8 @@ const Links = () => {
       <ul className="flex flex-col">
         {links &&
           links.map((link, i) => (
-            <li key={i}>
+            <li key={i} className="flex flex-row border-2 items-center">
+              <span className="text-xs text-gray-500">{link.MsgId}</span>
               <Anchor href={link.Link} />
             </li>
           ))}
