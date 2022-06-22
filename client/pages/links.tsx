@@ -27,15 +27,13 @@ const Links = () => {
   return (
     <div className="container">
       <ul>
-        {links
-          .sort((a, b) => (a.Link > b.Link ? 1 : -1))
-          .map((link, i) => (
-            <li key={i}>
-              <a href={link.Link} rel="noreferrer noopener" target="_blank">
-                {link.Link}
-              </a>
-            </li>
-          ))}
+        {links.map((link, i) => (
+          <li key={i}>
+            <a href={link.Link} rel="noreferrer noopener" target="_blank">
+              {link.Link}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );

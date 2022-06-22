@@ -20,7 +20,7 @@ type Logs struct {
 	Message    string
 }
 
-type Links struct {
+type Link struct {
 	MsgId uint `gorm:"primaryKey"`
 	Link  string
 }
