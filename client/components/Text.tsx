@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   id: string;
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+  autoFocus: boolean;
 };
 
-export const Text = ({ id }: Props) => {
-  const [value, setValue] = useState("");
+export const Text = ({ id, value, setValue, autoFocus }: Props) => {
   return (
     <input
+      autoFocus={autoFocus}
       onChange={(e) => setValue(e.target.value)}
       name={id}
       id={id}

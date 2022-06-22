@@ -68,5 +68,16 @@ func main() {
 		ctx.JSON(http.StatusOK, uniq(links))
 	})
 
+	r.GET("/links/:search", func(ctx *gin.Context) {
+		var links []Link
+		search := ctx.Params.ByName("search")
+		ctx.Header("Access-Control-Allow-Origin", frontendUrl)
+		db.Where("link ILIKE ?", "%"+search+"%").
+			Order("msg_id desc").
+			Scopes(Paginate(ctx.Request)).
+			Find(&links)
+		ctx.JSON(http.StatusOK, uniq(links))
+	})
+
 	r.Run(":8080")
 }
