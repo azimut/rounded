@@ -1,0 +1,2 @@
+* Rounded
+  Fullstack app to help me explore an archive of (mostly) IRC chat logs.
