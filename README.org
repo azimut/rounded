@@ -1,2 +1,2 @@
 * Rounded
-  Fullstack app to help me explore an archive of (mostly) IRC chat logs.
+  Fullstack app (Next.js + Go) to help me explore an archive of (mostly) IRC chat logs.

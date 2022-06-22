@@ -9,24 +9,24 @@ type Resp = {
   Link: string;
 };
 
+function fetchBySearch(needle: string): string {
+  if (needle === "") {
+    return "http://127.0.0.1:8080/links?page_size=30";
+  } else {
+    return `http://127.0.0.1:8080/links/${needle}?page_size=30`;
+  }
+}
+
 const Links = () => {
   const [search, setSearch] = useState("");
   const [links, setLinks] = useState<Resp[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [submit, setSubmit] = useState(false);
-  const fetchBySearch = (needle: string): string => {
-    if (needle === "") {
-      return "http://127.0.0.1:8080/links?page_size=30";
-    } else {
-      return `http://127.0.0.1:8080/links/${needle}?page_size=30`;
-    }
-  };
   useEffect(() => {
     setLoading(true);
     fetch(fetchBySearch(search))
       .then((res) => res.json())
       .then((data) => {
-        setSearch("");
         setLinks(data);
         setLoading(false);
       })
@@ -34,9 +34,6 @@ const Links = () => {
   }, [submit]);
   if (isLoading) {
     return <p>Loading...</p>;
-  }
-  if (!links) {
-    return <p>No links found.</p>;
   }
   return (
     <div>
@@ -58,11 +55,12 @@ const Links = () => {
         <Button text="go" />
       </form>
       <ul className="flex flex-col">
-        {links.map((link, i) => (
-          <li key={i}>
-            <Anchor href={link.Link} />
-          </li>
-        ))}
+        {links &&
+          links.map((link, i) => (
+            <li key={i}>
+              <Anchor href={link.Link} />
+            </li>
+          ))}
       </ul>
     </div>
   );
