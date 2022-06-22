@@ -62,14 +62,14 @@ func main() {
 	r.GET("/links", func(ctx *gin.Context) {
 		var links []Link
 		ctx.Header("Access-Control-Allow-Origin", frontendUrl)
-		if q := ctx.Request.URL.Query().Get("q"); q == "" {
+		query := ctx.Request.URL.Query().Get("q")
+		if query == "" {
 			db.Order("msg_id desc").
 				Scopes(Paginate(ctx.Request)).
 				Find(&links)
 			ctx.JSON(http.StatusOK, uniq(links))
-
 		} else {
-			db.Where("link ILIKE ?", "%"+q+"%").
+			db.Where("link ILIKE ?", "%"+query+"%").
 				Order("msg_id desc").
 				Scopes(Paginate(ctx.Request)).
 				Find(&links)
