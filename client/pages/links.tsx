@@ -13,7 +13,7 @@ function fetchBySearch(needle: string): string {
   if (needle === "") {
     return "http://127.0.0.1:8080/links?page_size=30";
   } else {
-    return `http://127.0.0.1:8080/links/${needle}?page_size=30`;
+    return `http://127.0.0.1:8080/links?q=${needle}&page_size=30`;
   }
 }
 
