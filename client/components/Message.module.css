@@ -1,0 +1,16 @@
+.message {
+  border-radius: 0.3em;
+  background-color: aliceblue;
+}
+
+.author {
+  margin: 0.1em;
+  font-size: 1.5em;
+  color: gray;
+  text-transform: capitalize;
+}
+
+.text {
+  margin: 0;
+  font-size: 1.25em;
+}

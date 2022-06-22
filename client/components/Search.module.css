@@ -1,0 +1,11 @@
+.search {
+  --input-font: 1.1em;
+}
+
+.search input {
+  font-size: var(--input-font);
+}
+
+.search button {
+  font-size: var(--input-font);
+}
