@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import Button from "../components/Button";
+import Anchor from "../components/Anchor";
+import Text from "../components/Text";
 
 type Resp = {
   MsgId: string;
@@ -26,42 +29,13 @@ const Links = () => {
   return (
     <div>
       <form>
-        <input
-          name=""
-          type="text"
-          value=""
-          className="
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded"
-        />
-        <button
-          className="
-          px-2 py-1
-          bg-blue-600
-          text-white
-          uppercase
-          rounded
-          shadow-md
-          text-xs"
-        >
-          Go
-        </button>
+        <Text id="search" />
+        <Button text="go" />
       </form>
       <ul className="flex flex-col">
         {links.map((link, i) => (
           <li key={i}>
-            <a
-              className="text-blue-600 visited:text-purple-600 hover:text-blue-700 transition duration-300 ease-in-out"
-              href={link.Link}
-              rel="noreferrer noopener"
-              target="_blank"
-            >
-              {link.Link}
-            </a>
+            <Anchor href={link.Link} />
           </li>
         ))}
       </ul>
