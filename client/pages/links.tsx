@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import Paginas from "components/Paginas";
 import Button from "components/Button";
 import Anchor from "components/Anchor";
 import Text from "components/Text";
@@ -21,27 +20,39 @@ function fetchBySearch(needle: string, page: number): string {
 }
 
 const Links = () => {
+  const [isLoading, setLoading] = useState(false);
+  const [isNextLoading, setNextLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [links, setLinks] = useState<Resp[]>([]);
-  const [isLoading, setLoading] = useState(false);
   const searchRef = useRef<HTMLInputElement | null>(null);
   const [page, setPage] = useState(1);
+
   useEffect(() => {
     setLoading(true);
+    setPage(1);
     fetch(fetchBySearch(search, page))
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Resp[]) => {
         setLinks(data);
         setLoading(false);
-      })
-      .catch((e) => console.error(e));
-  }, [page, search]);
-  useEffect(() => {
-    setPage(1);
+      });
   }, [search]);
+
+  useEffect(() => {
+    if (isLoading) return;
+    setNextLoading(true);
+    fetch(fetchBySearch(search, page))
+      .then((res) => res.json())
+      .then((data: Resp[]) => {
+        setLinks(links.concat(data));
+        setNextLoading(false);
+      });
+  }, [page]);
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
+
   return (
     <div>
       <Head>
@@ -57,8 +68,6 @@ const Links = () => {
         <Button text="go" />
       </form>
 
-      <Paginas page={page} setPage={setPage} morePages={links.length > 30} />
-
       <ul className="flex flex-col">
         {links &&
           links.map((link, i) => (
@@ -68,7 +77,12 @@ const Links = () => {
             </li>
           ))}
       </ul>
-      <Paginas page={page} setPage={setPage} morePages={links.length > 30} />
+      <button
+        onClick={() => setPage(page + 1)}
+        className="w-full text-white bg-blue-600 shadow-md capitalize"
+      >
+        more
+      </button>
     </div>
   );
 };
