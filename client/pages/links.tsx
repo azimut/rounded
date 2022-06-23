@@ -56,12 +56,13 @@ const Links = () => {
         <Button text="go" />
       </form>
 
+      {page > 1 ? <button>{`[${page - 1}]`}</button> : null}
       {links.length === 30 ? (
         <button
           onClick={() => {
             setPage(page + 1);
           }}
-        >{`>> ${page + 1}`}</button>
+        >{`[${page + 1}]`}</button>
       ) : null}
 
       <ul className="flex flex-col">
