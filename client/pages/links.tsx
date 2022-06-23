@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Button from "components/Button";
 import Anchor from "components/Anchor";
 import Text from "components/Text";
@@ -9,13 +9,13 @@ type Resp = {
   Link: string;
 };
 
-function fetchBySearch(needle: string): string {
+function fetchBySearch(needle: string, page: number): string {
   if (needle === "") {
     return "http://127.0.0.1:8080/links?page_size=30";
   } else {
     return `http://127.0.0.1:8080/links?q=${encodeURIComponent(
       needle
-    )}&page_size=30`;
+    )}&page=${page}&page_size=30`;
   }
 }
 
@@ -23,17 +23,21 @@ const Links = () => {
   const [search, setSearch] = useState("");
   const [links, setLinks] = useState<Resp[]>([]);
   const [isLoading, setLoading] = useState(false);
-  const [submit, setSubmit] = useState(false);
+  const searchRef = useRef<HTMLInputElement | null>(null);
+  const [page, setPage] = useState(1);
   useEffect(() => {
     setLoading(true);
-    fetch(fetchBySearch(search))
+    fetch(fetchBySearch(search, page))
       .then((res) => res.json())
       .then((data) => {
         setLinks(data);
         setLoading(false);
       })
       .catch((e) => console.error(e));
-  }, [submit]);
+  }, [page, search]);
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -45,17 +49,21 @@ const Links = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          setSubmit(!submit);
+          searchRef.current && setSearch(searchRef.current.value);
         }}
       >
-        <Text
-          id="search"
-          value={search}
-          setValue={setSearch}
-          autoFocus={true}
-        />
+        <Text id="search" iref={searchRef} autoFocus required />
         <Button text="go" />
       </form>
+
+      {links.length === 30 ? (
+        <button
+          onClick={() => {
+            setPage(page + 1);
+          }}
+        >{`>> ${page + 1}`}</button>
+      ) : null}
+
       <ul className="flex flex-col">
         {links &&
           links.map((link, i) => (

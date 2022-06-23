@@ -8,17 +8,6 @@ import (
 
 var frontendUrl = "http://127.0.0.1:3000"
 
-func uniq(links []Link) (result []Link) {
-	flagLinks := make(map[string]bool)
-	for _, link := range links {
-		if _, ok := flagLinks[link.Link]; !ok {
-			flagLinks[link.Link] = true
-			result = append(result, link)
-		}
-	}
-	return result
-}
-
 func main() {
 	r := gin.Default()
 	db := InitDB()
@@ -67,13 +56,13 @@ func main() {
 			db.Order("msg_id desc").
 				Scopes(Paginate(ctx.Request)).
 				Find(&links)
-			ctx.JSON(http.StatusOK, uniq(links))
+			ctx.JSON(http.StatusOK, links)
 		} else {
 			db.Where("link ILIKE ?", "%"+query+"%").
 				Order("msg_id desc").
 				Scopes(Paginate(ctx.Request)).
 				Find(&links)
-			ctx.JSON(http.StatusOK, uniq(links))
+			ctx.JSON(http.StatusOK, links)
 		}
 	})
 

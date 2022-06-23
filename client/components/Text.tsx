@@ -1,21 +1,21 @@
-import { Dispatch, SetStateAction } from "react";
+import { RefObject } from "react";
 
 type Props = {
   id: string;
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
-  autoFocus: boolean;
+  iref: RefObject<HTMLInputElement>;
+  autoFocus?: boolean;
+  required?: boolean;
 };
 
-export const Text = ({ id, value, setValue, autoFocus }: Props) => {
+export const Text = ({ id, iref, autoFocus, required }: Props) => {
   return (
     <input
-      autoFocus={autoFocus}
-      onChange={(e) => setValue(e.target.value)}
+      ref={iref}
+      required={required ? true : false}
+      autoFocus={autoFocus ? true : false}
       name={id}
       id={id}
       type="text"
-      value={value}
       className="
     text-base
     font-normal
