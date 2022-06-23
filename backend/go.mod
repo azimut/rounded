@@ -3,6 +3,7 @@ module github.com/azimut/rounded-backend
 go 1.14
 
 require (
+	github.com/gin-contrib/cors v1.3.1 // indirect
 	github.com/gin-gonic/gin v1.8.1 // indirect
 	github.com/go-playground/validator/v10 v10.11.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
