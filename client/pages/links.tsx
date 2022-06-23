@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import Paginas from "components/Paginas";
 import Button from "components/Button";
 import Anchor from "components/Anchor";
 import Text from "components/Text";
@@ -15,7 +16,7 @@ function fetchBySearch(needle: string, page: number): string {
   } else {
     return `http://127.0.0.1:8080/links?q=${encodeURIComponent(
       needle
-    )}&page=${page}&page_size=30`;
+    )}&page=${page}&page_size=100`;
   }
 }
 
@@ -52,28 +53,22 @@ const Links = () => {
           searchRef.current && setSearch(searchRef.current.value);
         }}
       >
-        <Text id="search" iref={searchRef} autoFocus required />
+        <Text id="search" iref={searchRef} autoFocus />
         <Button text="go" />
       </form>
 
-      {page > 1 ? <button>{`[${page - 1}]`}</button> : null}
-      {links.length === 30 ? (
-        <button
-          onClick={() => {
-            setPage(page + 1);
-          }}
-        >{`[${page + 1}]`}</button>
-      ) : null}
+      <Paginas page={page} setPage={setPage} morePages={links.length > 30} />
 
       <ul className="flex flex-col">
         {links &&
           links.map((link, i) => (
             <li key={i} className="flex flex-row border-2 items-center">
-              <span className="text-xs text-gray-500">{link.MsgId}</span>
+              <span className="text-[9px] p-1 text-gray-500">{link.MsgId}</span>
               <Anchor href={link.Link} />
             </li>
           ))}
       </ul>
+      <Paginas page={page} setPage={setPage} morePages={links.length > 30} />
     </div>
   );
 };
