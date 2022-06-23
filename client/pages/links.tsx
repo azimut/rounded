@@ -59,13 +59,13 @@ const Links = () => {
         <title>links</title>
       </Head>
       <form
+        className="flex flex-row justify-center"
         onSubmit={(e) => {
           e.preventDefault();
           searchRef.current && setSearch(searchRef.current.value);
         }}
       >
         <Text id="search" iref={searchRef} />
-        <Button text="go" />
       </form>
 
       <ul className="flex flex-col">
