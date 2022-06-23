@@ -1,4 +1,3 @@
-import { FC } from "react";
 import styles from "./Message.module.css";
 
 type Props = {
@@ -6,7 +5,7 @@ type Props = {
   msg: string;
 };
 
-export const Message: FC = ({ usr, msg }: Props) => {
+export const Message = ({ usr, msg }: Props) => {
   return (
     <div className={styles.message}>
       <h3 className={styles.author}>{usr}</h3>

@@ -42,9 +42,38 @@ func main() {
 			Find(&recs)
 		ctx.JSON(http.StatusOK, recs)
 	})
+	r.GET("/channels", handleListChannels)
+	r.GET("/channel/:chanid", handleSearchChannel)
 	r.GET("/message/:msgid", handleGetMessage)
 	r.GET("/links", handleSearchLinks)
 	r.Run(":8080")
+}
+
+// TODO: too slow!!! create a table of unique channels
+func handleListChannels(ctx *gin.Context) {
+	results := []struct {
+		Window string
+	}{}
+	db.Table("logs").Distinct("window").Find(&results)
+	ctx.JSON(http.StatusOK, results)
+}
+
+func handleSearchChannel(ctx *gin.Context) {
+	var logs []Logs
+	channel := ctx.Params.ByName("chanid")
+	query := ctx.Request.URL.Query().Get("q")
+	if query == "" {
+		db.Where("logs.window = ?", channel).
+			Order("id desc").
+			Scopes(Paginate(ctx.Request)).
+			Find(&logs)
+	} else {
+		db.Where("logs.window = ? AND message ILIKE ?", channel, "%"+query+"%").
+			Order("id desc").
+			Scopes(Paginate(ctx.Request)).
+			Find(&logs)
+	}
+	ctx.JSON(http.StatusOK, logs)
 }
 
 func handleGetMessage(ctx *gin.Context) {

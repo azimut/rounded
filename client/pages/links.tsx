@@ -18,7 +18,7 @@ function fetchBySearch(needle: string, page: number): string {
   }
 }
 
-const Links = () => {
+export default function Links() {
   const [isLoading, setLoading] = useState(false);
   const [isNextLoading, setNextLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -68,7 +68,7 @@ const Links = () => {
       </form>
 
       <ul className="flex flex-col">
-        {links && links.length === 0 && <p>No Results </p>}
+        {links && links.length === 0 && <p>No Results</p>}
         {links &&
           links.length !== 0 &&
           links.map((link, i) => (
@@ -88,5 +88,4 @@ const Links = () => {
       </ul>
     </div>
   );
-};
-export default Links;
+}
