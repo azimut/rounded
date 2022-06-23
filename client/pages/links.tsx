@@ -64,7 +64,7 @@ const Links = () => {
           searchRef.current && setSearch(searchRef.current.value);
         }}
       >
-        <Text id="search" iref={searchRef} autoFocus />
+        <Text id="search" iref={searchRef} />
         <Button text="go" />
       </form>
 
