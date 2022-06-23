@@ -30,7 +30,7 @@ const Links = () => {
   useEffect(() => {
     setLoading(true);
     setPage(1);
-    fetch(fetchBySearch(search, page))
+    fetch(fetchBySearch(search, 1))
       .then((res) => res.json())
       .then((data: Resp[]) => {
         setLinks(data);
