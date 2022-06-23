@@ -5,7 +5,6 @@ type Props = {
 
 export const Anchor = ({ href, otherClass }: Props) => {
   const finalClass = `${otherClass}
-        truncate
       text-blue-600
       visited:text-purple-600
       hover:text-blue-700

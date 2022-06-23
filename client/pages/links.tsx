@@ -67,27 +67,27 @@ export default function Links() {
         <Text id="search" iref={searchRef} />
       </form>
 
-      <ul className="flex flex-col">
+      <div className="grid grid-cols-12 items-center">
         {links && links.length === 0 && <p>No Results</p>}
         {links &&
           links.length !== 0 &&
-          links.map((link, i) => (
-            <li key={i} className="grid grid-cols-12 border-2 items-center">
-              <span className="text-[9px] p-1 text-gray-500 col-span-1 truncate">
+          links.map((link) => (
+            <>
+              <span className="col-span-1 text-xs text-gray-500 text-center truncate">
                 {link.MsgId}
               </span>
-              <Anchor href={link.Link} otherClass="col-span-11" />
-            </li>
+              <Anchor href={link.Link} otherClass="col-span-11 truncate" />
+            </>
           ))}
-        {links && links.length !== 0 && (
-          <button
-            onClick={() => setPage(page + 1)}
-            className="w-full text-white bg-blue-600 shadow-md capitalize"
-          >
-            more
-          </button>
-        )}
-      </ul>
+      </div>
+      {links && links.length !== 0 && (
+        <button
+          onClick={() => setPage(page + 1)}
+          className="w-full text-white bg-blue-600 shadow-md capitalize"
+        >
+          more
+        </button>
+      )}
     </div>
   );
 }
