@@ -6,6 +6,7 @@ export const Anchor = ({ href }: Props) => {
   return (
     <a
       className="
+      truncate
       text-blue-600
       visited:text-purple-600
       hover:text-blue-700
