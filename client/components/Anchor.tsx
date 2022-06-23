@@ -1,18 +1,20 @@
 type Props = {
   href: string;
+  otherClass?: string;
 };
 
-export const Anchor = ({ href }: Props) => {
-  return (
-    <a
-      className="
-      truncate
+export const Anchor = ({ href, otherClass }: Props) => {
+  const finalClass = `${otherClass}
+        truncate
       text-blue-600
       visited:text-purple-600
       hover:text-blue-700
       transition
       duration-300
-      ease-in-out"
+      ease-in-out`;
+  return (
+    <a
+      className={finalClass}
       href={href}
       rel="noreferrer noopener"
       target="_blank"

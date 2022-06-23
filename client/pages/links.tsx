@@ -72,9 +72,11 @@ export default function Links() {
         {links &&
           links.length !== 0 &&
           links.map((link, i) => (
-            <li key={i} className="flex flex-row border-2 items-center">
-              <span className="text-[9px] p-1 text-gray-500">{link.MsgId}</span>
-              <Anchor href={link.Link} />
+            <li key={i} className="grid grid-cols-12 border-2 items-center">
+              <span className="text-[9px] p-1 text-gray-500 col-span-1 truncate">
+                {link.MsgId}
+              </span>
+              <Anchor href={link.Link} otherClass="col-span-11" />
             </li>
           ))}
         {links && links.length !== 0 && (
