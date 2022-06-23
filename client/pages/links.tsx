@@ -76,13 +76,15 @@ const Links = () => {
               <Anchor href={link.Link} />
             </li>
           ))}
+        {links && (
+          <button
+            onClick={() => setPage(page + 1)}
+            className="w-full text-white bg-blue-600 shadow-md capitalize"
+          >
+            more
+          </button>
+        )}
       </ul>
-      <button
-        onClick={() => setPage(page + 1)}
-        className="w-full text-white bg-blue-600 shadow-md capitalize"
-      >
-        more
-      </button>
     </div>
   );
 };
