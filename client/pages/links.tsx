@@ -11,7 +11,7 @@ type Resp = {
 
 function fetchBySearch(needle: string, page: number): string {
   if (needle === "") {
-    return "http://127.0.0.1:8080/links?page_size=30";
+    return `http://127.0.0.1:8080/links?page=${page}&page_size=30`;
   } else {
     return `http://127.0.0.1:8080/links?q=${encodeURIComponent(
       needle
