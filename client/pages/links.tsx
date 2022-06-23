@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Button from "../components/Button";
-import Anchor from "../components/Anchor";
-import Text from "../components/Text";
+import Button from "components/Button";
+import Anchor from "components/Anchor";
+import Text from "components/Text";
 import Head from "next/head";
 
 type Resp = {
