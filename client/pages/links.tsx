@@ -59,7 +59,7 @@ const Links = () => {
         <title>links</title>
       </Head>
       <form
-        className="flex flex-row justify-center"
+        className="flex flex-row justify-center p-2"
         onSubmit={(e) => {
           e.preventDefault();
           searchRef.current && setSearch(searchRef.current.value);
