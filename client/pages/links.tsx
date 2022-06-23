@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import Button from "components/Button";
 import Anchor from "components/Anchor";
 import Text from "components/Text";
 import Head from "next/head";
@@ -69,6 +68,7 @@ const Links = () => {
       </form>
 
       <ul className="flex flex-col">
+        {links && links.length === 0 && <p>No Results </p>}
         {links &&
           links.length !== 0 &&
           links.map((link, i) => (
