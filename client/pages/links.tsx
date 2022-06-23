@@ -70,13 +70,14 @@ const Links = () => {
 
       <ul className="flex flex-col">
         {links &&
+          links.length !== 0 &&
           links.map((link, i) => (
             <li key={i} className="flex flex-row border-2 items-center">
               <span className="text-[9px] p-1 text-gray-500">{link.MsgId}</span>
               <Anchor href={link.Link} />
             </li>
           ))}
-        {links && (
+        {links && links.length !== 0 && (
           <button
             onClick={() => setPage(page + 1)}
             className="w-full text-white bg-blue-600 shadow-md capitalize"
