@@ -41,9 +41,7 @@ export default function Links() {
       });
   }, [search, page]);
 
-  useEffect(() => {
-    search === "" && setPage(1);
-  }, [search]);
+  useEffect(() => setPage(1), [search]);
 
   if (isLoading) {
     return (
