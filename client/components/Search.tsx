@@ -1,9 +1,8 @@
-import { Dispatch, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
-  onSubmit: Dispatch<SetStateAction<boolean>>;
   placeholder?: string;
   autofocus?: boolean;
   required?: boolean;
@@ -12,17 +11,15 @@ type Props = {
 export default function Search({
   search,
   setSearch,
-  onSubmit,
   placeholder = "",
   autofocus = false,
   required = false,
 }: Props) {
-  const submit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSubmit(true);
-  };
   return (
-    <form onSubmit={submit} className="flex flex-row justify-center p-2">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="flex flex-row justify-center p-2"
+    >
       <input
         type="text"
         value={search}

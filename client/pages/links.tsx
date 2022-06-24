@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import Anchor from "components/Anchor";
-import Text from "components/Text";
 import Head from "next/head";
 import Search from "components/Search";
+import IdleSearch from "components/IdleSearch";
 
 type Resp = {
   MsgId: string;
@@ -53,18 +53,23 @@ export default function Links() {
 
   if (isLoading) {
     return (
-      <>
-        <Head>
-          <title>loading...</title>
-        </Head>
-        <Search
-          search={search}
-          setSearch={setSearch}
-          onSubmit={setDoSearch}
-          autofocus
-        />
-        <p>Loading...</p>
-      </>
+      <IdleSearch
+        title="loading..."
+        message="loading.."
+        search={search}
+        setSearch={setSearch}
+      />
+    );
+  }
+
+  if (links && links.length === 0) {
+    return (
+      <IdleSearch
+        title="links"
+        message="No results..."
+        search={search}
+        setSearch={setSearch}
+      />
     );
   }
 
@@ -74,16 +79,10 @@ export default function Links() {
         <title>links</title>
       </Head>
 
-      <Search
-        search={search}
-        setSearch={setSearch}
-        onSubmit={setDoSearch}
-        autofocus
-      />
+      <Search search={search} setSearch={setSearch} autofocus />
 
       <div className="bg-slate-200">
         <div className="grid grid-cols-12 items-center gap-px bg-slate-50">
-          {links && links.length === 0 && <p>No Results</p>}
           {links &&
             links.length !== 0 &&
             links.map((link) => (
