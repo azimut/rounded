@@ -71,7 +71,11 @@ export default function Links() {
         <title>links</title>
       </Head>
 
-      <Search search={search} setSearch={setSearch} autofocus />
+      <Search
+        search={search}
+        setSearch={setSearch}
+        placeholder="search here..."
+      />
 
       <div className="bg-slate-200">
         <div className="grid grid-cols-12 items-center gap-px bg-slate-50">
