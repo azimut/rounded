@@ -5,6 +5,9 @@
    - gorm
    - gin
 ** Frontend
+   - Typescript
    - Next.js
    - React
    - Tailwind CSS
+** Screenshoots
+*** /links

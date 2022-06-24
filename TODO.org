@@ -1,0 +1,16 @@
+* /links
+** TODO on MORE do NOT scroll back up
+** TODO Enumerate each result, instead of table id
+** TODO show "MORE" conditionally check on backend if there are more results
+** TODO color highlight searched terms on results
+** TODO Lazy scrolling
+** TODO drop down channel
+** TODO refactor
+** TODO regex or smart search
+** DONE BUG: on hot reload it appends data sometimes
+** DONE keep searched term on bar
+** DONE show search box on empty links
+** DONE show msg_id (link to /message/id)
+** DONE parse search string, accept (%) and (/)
+* /images
+* /channel/
