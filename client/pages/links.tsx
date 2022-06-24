@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Anchor from "components/Anchor";
 import Text from "components/Text";
 import Head from "next/head";
+import Search from "components/Search";
 
 type Resp = {
   MsgId: string;
@@ -23,7 +24,6 @@ export default function Links() {
   const [isNextLoading, setNextLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [links, setLinks] = useState<Resp[]>([]);
-  const searchRef = useRef<HTMLInputElement | null>(null);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -57,29 +57,25 @@ export default function Links() {
       <Head>
         <title>links</title>
       </Head>
-      <form
-        className="flex flex-row justify-center p-2"
-        onSubmit={(e) => {
-          e.preventDefault();
-          searchRef.current && setSearch(searchRef.current.value);
-        }}
-      >
-        <Text id="search" iref={searchRef} />
-      </form>
 
-      <div className="grid grid-cols-12 items-center">
-        {links && links.length === 0 && <p>No Results</p>}
-        {links &&
-          links.length !== 0 &&
-          links.map((link) => (
-            <>
-              <span className="col-span-1 text-xs text-gray-500 text-center truncate">
-                {link.MsgId}
-              </span>
-              <Anchor href={link.Link} otherClass="col-span-11 truncate" />
-            </>
-          ))}
+      <Search onSubmit={setSearch} placeholder="search for links..." />
+
+      <div className="bg-slate-200">
+        <div className="grid grid-cols-12 items-center gap-px bg-slate-50">
+          {links && links.length === 0 && <p>No Results</p>}
+          {links &&
+            links.length !== 0 &&
+            links.map((link) => (
+              <>
+                <span className="col-span-1 text-xs text-gray-500 text-center truncate">
+                  {link.MsgId}
+                </span>
+                <Anchor href={link.Link} otherClass="col-span-11 truncate" />
+              </>
+            ))}
+        </div>
       </div>
+
       {links && links.length !== 0 && (
         <button
           onClick={() => setPage(page + 1)}
