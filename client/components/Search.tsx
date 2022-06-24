@@ -1,29 +1,32 @@
 import { Dispatch, SetStateAction, useRef } from "react";
 
 type Props = {
-  onSubmit: Dispatch<SetStateAction<string>>;
+  search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
+  onSubmit: Dispatch<SetStateAction<boolean>>;
   placeholder?: string;
   autofocus?: boolean;
   required?: boolean;
 };
 
 export default function Search({
+  search,
+  setSearch,
   onSubmit,
   placeholder = "",
   autofocus = false,
   required = false,
 }: Props) {
-  const inputRef = useRef<HTMLInputElement>(null);
   const submit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const search = inputRef.current ? inputRef.current.value : "";
-    onSubmit(search);
+    onSubmit(true);
   };
   return (
     <form onSubmit={submit} className="flex flex-row justify-center p-2">
       <input
         type="text"
-        ref={inputRef}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
         autoFocus={autofocus}
         required={required}
         placeholder={placeholder}

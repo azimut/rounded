@@ -20,9 +20,12 @@ function fetchBySearch(needle: string, page: number): string {
 }
 
 export default function Links() {
+  const [search, setSearch] = useState("");
+  const [doSearch, setDoSearch] = useState(false);
+
   const [isLoading, setLoading] = useState(false);
   const [isNextLoading, setNextLoading] = useState(false);
-  const [search, setSearch] = useState("");
+
   const [links, setLinks] = useState<Resp[]>([]);
   const [page, setPage] = useState(1);
 
@@ -49,7 +52,20 @@ export default function Links() {
   }, [page]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <>
+        <Head>
+          <title>loading...</title>
+        </Head>
+        <Search
+          search={search}
+          setSearch={setSearch}
+          onSubmit={setDoSearch}
+          autofocus
+        />
+        <p>Loading...</p>
+      </>
+    );
   }
 
   return (
@@ -58,7 +74,12 @@ export default function Links() {
         <title>links</title>
       </Head>
 
-      <Search onSubmit={setSearch} placeholder="search for links..." />
+      <Search
+        search={search}
+        setSearch={setSearch}
+        onSubmit={setDoSearch}
+        autofocus
+      />
 
       <div className="bg-slate-200">
         <div className="grid grid-cols-12 items-center gap-px bg-slate-50">
