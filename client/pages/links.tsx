@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Anchor from "components/Anchor";
 import Head from "next/head";
 import Search from "components/Search";
@@ -74,7 +74,7 @@ export default function Links() {
   }
 
   return (
-    <div>
+    <>
       <Head>
         <title>links</title>
       </Head>
@@ -83,27 +83,23 @@ export default function Links() {
 
       <div className="bg-slate-200">
         <div className="grid grid-cols-12 items-center gap-px bg-slate-50">
-          {links &&
-            links.length !== 0 &&
-            links.map((link) => (
-              <>
-                <span className="col-span-1 text-xs text-gray-500 text-center truncate">
-                  {link.MsgId}
-                </span>
-                <Anchor href={link.Link} otherClass="col-span-11 truncate" />
-              </>
-            ))}
+          {links.map((link) => (
+            <>
+              <span className="col-span-1 text-xs text-gray-500 text-center truncate">
+                {link.MsgId}
+              </span>
+              <Anchor href={link.Link} otherClass="col-span-11 truncate" />
+            </>
+          ))}
         </div>
       </div>
 
-      {links && links.length !== 0 && (
-        <button
-          onClick={() => setPage(page + 1)}
-          className="w-full text-white bg-blue-600 shadow-md capitalize"
-        >
-          more
-        </button>
-      )}
-    </div>
+      <button
+        onClick={() => setPage(page + 1)}
+        className="w-full text-white bg-blue-600 shadow-md capitalize"
+      >
+        more
+      </button>
+    </>
   );
 }
