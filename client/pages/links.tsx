@@ -3,47 +3,16 @@ import Anchor from "components/Anchor";
 import Head from "next/head";
 import Search from "components/Search";
 import IdleSearch from "components/IdleSearch";
-
-type Resp = {
-  MsgId: string;
-  Link: string;
-};
-
-function fetchBySearch(needle: string, page: number): string {
-  if (needle === "") {
-    return `http://127.0.0.1:8080/links?page=${page}&page_size=30`;
-  } else {
-    return `http://127.0.0.1:8080/links?q=${encodeURIComponent(
-      needle
-    )}&page=${page}&page_size=100`;
-  }
-}
+import useLinks from "hooks/useLinks";
 
 export default function Links() {
   const [search, setSearch] = useState("");
-  const [doSearch, setDoSearch] = useState(false);
-
-  const [isLoading, setLoading] = useState(false);
-  const [isNextLoading, setNextLoading] = useState(false);
-
-  const [links, setLinks] = useState<Resp[]>([]);
   const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    setLoading(true);
-    fetch(fetchBySearch(search, page))
-      .then((res) => res.json())
-      .then((data: Resp[]) => {
-        setLinks((prevLinks) => {
-          return page === 1 ? data : prevLinks.concat(data);
-        });
-        setLoading(false);
-      });
-  }, [search, page]);
+  const { links, isLoading } = useLinks(search, page);
 
   useEffect(() => setPage(1), [search]);
 
-  if (isLoading) {
+  if (!links || isLoading) {
     return (
       <IdleSearch
         title="loading..."
