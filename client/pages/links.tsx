@@ -31,25 +31,19 @@ export default function Links() {
 
   useEffect(() => {
     setLoading(true);
-    setPage(1);
-    fetch(fetchBySearch(search, 1))
-      .then((res) => res.json())
-      .then((data: Resp[]) => {
-        setLinks(data);
-        setLoading(false);
-      });
-  }, [search]);
-
-  useEffect(() => {
-    if (isLoading) return;
-    setNextLoading(true);
     fetch(fetchBySearch(search, page))
       .then((res) => res.json())
       .then((data: Resp[]) => {
-        setLinks(links.concat(data));
-        setNextLoading(false);
+        setLinks((prevLinks) => {
+          return page === 1 ? data : prevLinks.concat(data);
+        });
+        setLoading(false);
       });
-  }, [page]);
+  }, [search, page]);
+
+  useEffect(() => {
+    search === "" && setPage(1);
+  }, [search]);
 
   if (isLoading) {
     return (
