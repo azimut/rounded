@@ -24,7 +24,7 @@ export default function useLinks(search: string, page: number) {
       .then((res) => res.json())
       .then((data: Resp[]) => {
         setLinks((prevLinks) => {
-          return page === 1 ? data : prevLinks.concat(data);
+          return page === 1 ? data : [...prevLinks, ...data];
         });
         setLoading(false);
       })

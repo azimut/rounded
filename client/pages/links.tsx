@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Anchor from "components/Anchor";
 import Head from "next/head";
 import Search from "components/Search";
-import IdleSearch from "components/IdleSearch";
 import useLinks from "hooks/useLinks";
 
 export default function Links() {
@@ -11,28 +10,6 @@ export default function Links() {
   const { links, isLoading } = useLinks(search, page);
 
   useEffect(() => setPage(1), [search]);
-
-  if (!links || isLoading) {
-    return (
-      <IdleSearch
-        title="loading..."
-        message="loading.."
-        search={search}
-        setSearch={setSearch}
-      />
-    );
-  }
-
-  if (links && links.length === 0) {
-    return (
-      <IdleSearch
-        title="links"
-        message="No results..."
-        search={search}
-        setSearch={setSearch}
-      />
-    );
-  }
 
   return (
     <>
@@ -44,6 +21,7 @@ export default function Links() {
         search={search}
         setSearch={setSearch}
         placeholder="search here..."
+        idleMsg={!links || isLoading || links.length === 0 ? "No results." : ""}
       />
 
       <div className="bg-slate-200">
