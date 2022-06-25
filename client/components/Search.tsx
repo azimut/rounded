@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
+  title: string;
   placeholder: string;
   idleMsg: string;
   search: string;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export default function Search({
+  title,
   idleMsg,
   search,
   setSearch,
@@ -18,7 +20,7 @@ export default function Search({
   return (
     <>
       <Head>
-        <title>{idleMsg}</title>
+        <title>{idleMsg === "" ? title : idleMsg}</title>
       </Head>
       <Text search={search} setSearch={setSearch} placeholder={placeholder} />
       {idleMsg === "" && <p>{idleMsg}</p>}

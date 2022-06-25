@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Anchor from "components/Anchor";
-import Head from "next/head";
 import Search from "components/Search";
 import useLinks from "hooks/useLinks";
 
@@ -13,14 +12,11 @@ export default function Links() {
 
   return (
     <>
-      <Head>
-        <title>links</title>
-      </Head>
-
       <Search
         search={search}
         setSearch={setSearch}
         placeholder="search here..."
+        title="links"
         idleMsg={!links || isLoading || links.length === 0 ? "No results." : ""}
       />
 
