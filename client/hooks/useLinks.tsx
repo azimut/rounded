@@ -15,7 +15,10 @@ function fetchBySearch(needle: string, page: number): string {
   }
 }
 
-export default function useLinks(search: string, page: number) {
+export default function useLinks(
+  search: string,
+  page: number
+): { links: Resp[]; isLoading: boolean } {
   const [isLoading, setLoading] = useState(false);
   const [links, setLinks] = useState<Resp[]>([]);
   useEffect(() => {
