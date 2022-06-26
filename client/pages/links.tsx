@@ -1,13 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Anchor from "components/Anchor";
 import Search from "components/Search";
 import useLinks from "hooks/useLinks";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Links() {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const { links, isLoading } = useLinks(search, page);
+  const [ready, setReady] = useState(false);
+  const { links, isLoading } = useLinks(search, page, ready);
+
+  useEffect(() => {
+    if (router.isReady) {
+      if (router.query.q) {
+        setSearch(router.query.q.toString());
+      }
+      setReady(true);
+    }
+  }, [router.isReady]);
+
+  useEffect(() => {
+    if (!ready) return;
+    router.push(`/links?q=${encodeURIComponent(search)}`, undefined, {
+      shallow: true,
+    });
+  }, [search, ready]);
 
   useEffect(() => setPage(1), [search]);
 
