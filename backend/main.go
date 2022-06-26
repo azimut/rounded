@@ -44,7 +44,7 @@ func main() {
 	})
 	r.GET("/channels", handleListChannels)
 	r.GET("/channel/:chanid", handleSearchChannel)
-	r.GET("/message/:msgid", handleGetMessage)
+	r.GET("/message/:id", handleGetMessage)
 	r.GET("/links", handleSearchLinks)
 	r.Run(":8080")
 }
