@@ -16,12 +16,17 @@ export default function MessageID() {
       <Head>
         <title>Message {id}</title>
       </Head>
-      <div className="flex justify-center items-center min-h-screen px-10">
-        <Message
-          usr={message.Message.split(">")[0]}
-          msg={message.Message.split(">")[1]}
-        />
-      </div>
+      <main className="flex justify-center items-center min-h-screen px-5">
+        <div>
+          <p className="text-xs text-slate-400">
+            {message.Created_At.substring(0, 10)} in {message.Window}
+          </p>
+          <Message
+            usr={message.Message.split(">")[0].substring(1)}
+            msg={message.Message.split(">")[1]}
+          />
+        </div>
+      </main>
     </>
   );
 }
