@@ -29,6 +29,7 @@ export default function Channel() {
         setLoading(false);
       });
   }, [channel]);
+  if (!messages) return <p>Channel not found</p>;
   if (isLoading) return <p>Loading...</p>;
   return (
     <div className="flex flex-col">

@@ -22,7 +22,9 @@ export default function Search({
       <Head>
         <title>{idleMsg === "" ? title : idleMsg}</title>
       </Head>
-      <Text search={search} setSearch={setSearch} placeholder={placeholder} />
+      <div className="bg-slate-500">
+        <Text search={search} setSearch={setSearch} placeholder={placeholder} />
+      </div>
       {idleMsg === "" && <p>{idleMsg}</p>}
     </>
   );

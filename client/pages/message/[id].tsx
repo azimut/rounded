@@ -16,8 +16,8 @@ export default function MessageID() {
       <Head>
         <title>Message {id}</title>
       </Head>
-      <main className="flex justify-center items-center min-h-screen px-5">
-        <div>
+      <main className="flex justify-center items-center min-h-screen px-5 bg-slate-500">
+        <div className="bg-slate-100 drop-shadow-xl">
           <p className="text-xs text-slate-400">
             {message.Created_At} in {message.Channel}
           </p>
