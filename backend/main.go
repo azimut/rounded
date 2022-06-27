@@ -59,19 +59,30 @@ func handleListChannels(ctx *gin.Context) {
 }
 
 func handleSearchChannel(ctx *gin.Context) {
-	var logs []Logs
+	var rawlogs []Logs
+	var logs []LogsWithUser
 	channel := ctx.Params.ByName("chanid")
+	if channel == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{})
+		return
+	}
+	channel = "#" + channel
 	query := ctx.Request.URL.Query().Get("q")
 	if query == "" {
 		db.Where("logs.window = ?", channel).
 			Order("id desc").
 			Scopes(Paginate(ctx.Request)).
-			Find(&logs)
+			Find(&rawlogs)
 	} else {
 		db.Where("logs.window = ? AND message ILIKE ?", channel, "%"+query+"%").
 			Order("id desc").
 			Scopes(Paginate(ctx.Request)).
-			Find(&logs)
+			Find(&rawlogs)
+	}
+	logs, err := processLogs(rawlogs)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{})
+		return
 	}
 	ctx.JSON(http.StatusOK, logs)
 }

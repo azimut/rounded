@@ -20,6 +20,13 @@ type Logs struct {
 	Message    string
 }
 
+type LogsWithUser struct {
+	ID         uint
+	Created_At string
+	Message    string
+	User       string
+}
+
 type Link struct {
 	MsgId uint `gorm:"primaryKey"`
 	Link  string
