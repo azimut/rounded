@@ -1,7 +1,7 @@
-import useMessage from "hooks/useMessage";
 import Message from "components/Message";
-import { useRouter } from "next/router";
+import useMessage from "hooks/useMessage";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function MessageID() {

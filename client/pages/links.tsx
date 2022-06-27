@@ -1,9 +1,9 @@
-import { useEffect, useLayoutEffect, useState } from "react";
 import Anchor from "components/Anchor";
 import Search from "components/Search";
 import useLinks from "hooks/useLinks";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Links() {
   const router = useRouter();
