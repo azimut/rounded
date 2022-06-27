@@ -89,13 +89,19 @@ func handleSearchChannel(ctx *gin.Context) {
 
 func handleGetMessage(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
-	var rec Logs
-	db.First(&rec, id)
-	if (Logs{}) == rec {
+	var rawlog Logs
+	var log LogsWithUser
+	db.First(&rawlog, id)
+	if (Logs{}) == rawlog {
 		ctx.JSON(http.StatusNotFound, gin.H{})
 		return
 	}
-	ctx.JSON(http.StatusOK, rec)
+	log, err := processLog(rawlog)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{})
+		return
+	}
+	ctx.JSON(http.StatusOK, log)
 }
 
 func handleSearchLinks(ctx *gin.Context) {

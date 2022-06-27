@@ -23,6 +23,7 @@ type Logs struct {
 type LogsWithUser struct {
 	ID         uint
 	Created_At string
+	Channel    string
 	Message    string
 	User       string
 }

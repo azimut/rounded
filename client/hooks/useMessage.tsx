@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 type MessageState = {
   ID: number;
   Created_At: string;
-  Window: string;
-  Network: string;
+  Channel: string;
+  User: string;
   Message: string;
 } | null;
 

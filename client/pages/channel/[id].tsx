@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 type ChannelState = {
   ID: number;
   Created_At: string;
+  Channel: string;
   User: string;
   Message: string;
 };

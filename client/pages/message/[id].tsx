@@ -19,12 +19,9 @@ export default function MessageID() {
       <main className="flex justify-center items-center min-h-screen px-5">
         <div>
           <p className="text-xs text-slate-400">
-            {message.Created_At.substring(0, 10)} in {message.Window}
+            {message.Created_At} in {message.Channel}
           </p>
-          <Message
-            usr={message.Message.split(">")[0].substring(1)}
-            msg={message.Message.split(">")[1]}
-          />
+          <Message usr={message.User} msg={message.Message} />
         </div>
       </main>
     </>

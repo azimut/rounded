@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-var BOTS = []string{"nbot", "nbot_"}
+var BOTS = []string{"nbot", "nbot_", "Colleen"}
 
 func isBot(user string) bool {
 	for _, bot := range BOTS {
@@ -24,28 +24,38 @@ func extractNickMsg(rawmessage string) (string, string, error) {
 	return strings.TrimSpace(splitted[0][1:]), strings.TrimSpace(splitted[1]), nil
 }
 
-func processLogs(rawlogs []Logs) ([]LogsWithUser, error) {
-	logs := make([]LogsWithUser, len(rawlogs))
-	for i, rawlog := range rawlogs {
-		if strings.Contains(rawlog.Message, ">") {
-			usr, msg, err := extractNickMsg(rawlog.Message)
-			if err != nil {
-				return nil, err
-			}
-			if isBot(usr) {
-				usr, msg, err = extractNickMsg(msg)
-				if err != nil {
-					return nil, err
-				}
-			}
-			logs[i].User = usr
-			logs[i].Message = msg
-		} else {
-			logs[i].User = ""
-			logs[i].Message = rawlog.Message
+func processLog(rawlog Logs) (newlog LogsWithUser, err error) {
+	if strings.Contains(rawlog.Message, ">") {
+		usr, msg, err := extractNickMsg(rawlog.Message)
+		if err != nil {
+			return newlog, err
 		}
-		logs[i].ID = rawlog.ID
-		logs[i].Created_At = rawlog.Created_At.Format("2006-01-02 15:04:05")
+		if isBot(usr) {
+			usr, msg, err = extractNickMsg(msg)
+			if err != nil {
+				return newlog, err
+			}
+		}
+		newlog.User = usr
+		newlog.Message = msg
+	} else {
+		newlog.User = ""
+		newlog.Message = rawlog.Message
+	}
+	newlog.ID = rawlog.ID
+	newlog.Created_At = rawlog.Created_At.Format("2006-01-02 15:04:05")
+	newlog.Channel = rawlog.Window
+	return newlog, nil
+}
+
+func processLogs(rawlogs []Logs) ([]LogsWithUser, error) {
+	var logs []LogsWithUser
+	for _, rawlog := range rawlogs {
+		log, err := processLog(rawlog)
+		if err != nil {
+			return nil, err
+		}
+		logs = append(logs, log)
 	}
 	return logs, nil
 }
