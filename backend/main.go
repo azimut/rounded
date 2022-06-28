@@ -8,7 +8,6 @@ import (
 	"gorm.io/gorm"
 )
 
-var frontendUrl = "http://127.0.0.1:3000"
 var db *gorm.DB
 
 func main() {
@@ -44,7 +43,7 @@ func main() {
 	})
 	r.GET("/channels", handleListChannels)
 	r.GET("/channel/:chanid", handleSearchChannel)
-	r.GET("/message/:id", handleGetMessage)
+	r.GET("/message/:msgid", handleGetMessage)
 	r.GET("/links", handleSearchLinks)
 	r.Run(":8080")
 }
@@ -88,10 +87,10 @@ func handleSearchChannel(ctx *gin.Context) {
 }
 
 func handleGetMessage(ctx *gin.Context) {
-	id := ctx.Params.ByName("id")
+	msgid := ctx.Params.ByName("msgid")
 	var rawlog Logs
 	var log LogsWithUser
-	db.First(&rawlog, id)
+	db.First(&rawlog, msgid)
 	if (Logs{}) == rawlog {
 		ctx.JSON(http.StatusNotFound, gin.H{})
 		return

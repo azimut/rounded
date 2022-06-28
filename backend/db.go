@@ -10,22 +10,12 @@ import (
 	"gorm.io/gorm"
 )
 
-var dsn = "host=127.0.0.1 user=rounded password=redondo dbname=irclogs port=5432 sslmode=disable TimeZone=America/Argentina/Buenos_Aires"
-
 type Logs struct {
 	ID         uint `gorm:"primaryKey"`
 	Created_At time.Time
 	Window     string
 	Network    string
 	Message    string
-}
-
-type LogsWithUser struct {
-	ID         uint
-	Created_At string
-	Channel    string
-	Message    string
-	User       string
 }
 
 type Link struct {

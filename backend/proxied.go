@@ -5,7 +5,13 @@ import (
 	"strings"
 )
 
-var BOTS = []string{"nbot", "nbot_", "Colleen"}
+type LogsWithUser struct {
+	ID         uint
+	Created_At string
+	Channel    string
+	Message    string
+	User       string
+}
 
 func isBot(user string) bool {
 	for _, bot := range BOTS {
