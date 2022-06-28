@@ -1,16 +1,18 @@
 * /links
-** TODO on MORE do NOT scroll back up
-** TODO Enumerate each result, instead of table id
-** TODO show "MORE" conditionally check on backend if there are more results
-** TODO color highlight searched terms on results
-** TODO Lazy scrolling
-** TODO drop down channel
-** TODO refactor
-** TODO regex or smart search
-** DONE BUG: on hot reload it appends data sometimes
-** DONE keep searched term on bar
-** DONE show search box on empty links
-** DONE show msg_id (link to /message/id)
-** DONE parse search string, accept (%) and (/)
+- [ ] Lazy scrolling
+- [ ] have links accept q= param and pass them down
+- [ ] pop-up on id (or link) showing original message information
+- [ ] Enumerate each result, instead of table id
+- [ ] show "MORE" conditionally (or disabled) if check on backend if there are more results
+- [ ] color highlight searched terms on results
+- [ ] drop down channel
+- [ ] regex or smart search
+- [ ] refactor
+- [X] on MORE do NOT scroll back up
+- [X] BUG: on hot reload it appends data sometimes
+- [X] keep searched term on bar
+- [X] show search box on empty links
+- [X] show msg_id (link to /message/id)
+- [X] parse search string, accept (%) and (/)
 * /images
 * /channel/
