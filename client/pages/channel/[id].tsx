@@ -1,6 +1,7 @@
 import Message from "components/Message";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { BACKEND_URL } from "services/settings";
 
 type ChannelState = {
   ID: number;
@@ -19,7 +20,7 @@ export default function Channel() {
     if (channel == "") return;
     setLoading(true);
     fetch(
-      `http://127.0.0.1:8080/channel/${encodeURIComponent(
+      `${BACKEND_URL}/channel/${encodeURIComponent(
         channel
       )}?page=1&page_size=30`
     )

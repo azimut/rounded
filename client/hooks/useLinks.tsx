@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { BACKEND_URL } from "services/settings";
 
 type Resp = {
   MsgId: string;
@@ -7,9 +8,9 @@ type Resp = {
 
 function fetchBySearch(needle: string, page: number): string {
   if (needle === "") {
-    return `http://127.0.0.1:8080/links?page=${page}&page_size=50`;
+    return `${BACKEND_URL}/links?page=${page}&page_size=50`;
   } else {
-    return `http://127.0.0.1:8080/links?q=${encodeURIComponent(
+    return `${BACKEND_URL}/links?q=${encodeURIComponent(
       needle
     )}&page=${page}&page_size=50`;
   }
