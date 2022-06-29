@@ -7,13 +7,19 @@ type MessageState = {
   Channel: string;
   User: string;
   Message: string;
-} | null;
+};
 
 export default function useMessage(id: number): {
   isLoading: boolean;
   message: MessageState;
 } {
-  const [message, setMessage] = useState<MessageState>(null);
+  const [message, setMessage] = useState<MessageState>({
+    ID: 0,
+    Created_At: "",
+    Channel: "",
+    User: "",
+    Message: "",
+  });
   const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
