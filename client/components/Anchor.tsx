@@ -7,7 +7,7 @@ export const Anchor = ({ href, otherClass }: Props) => {
   const finalClass = `${otherClass}
       text-blue-600
       visited:text-purple-600
-      hover:text-blue-700
+      hover:text-red-600
       transition
       duration-300
       ease-in-out`;
