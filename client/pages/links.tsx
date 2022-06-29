@@ -1,6 +1,6 @@
 import Search from "components/Search";
 import useLinks from "hooks/useLinks";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import LinkList from "components/LinkList";
 
 export default function Links() {
@@ -13,7 +13,23 @@ export default function Links() {
     [setPage]
   );
 
+  const observedRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => resetPage(), [resetPage, search]);
+
+  useEffect(() => {
+    const fn = (entries: IntersectionObserverEntry[]) => {
+      if (entries[0].isIntersecting) {
+        console.log("intersected!");
+        nextPage();
+      }
+    };
+    const observer = new IntersectionObserver(fn, {
+      rootMargin: "100px",
+    });
+    observedRef.current && observer.observe(observedRef.current);
+    return () => observer && observer.disconnect();
+  });
 
   return (
     <>
@@ -24,17 +40,15 @@ export default function Links() {
         title="links"
         idleMsg={!links || isLoading || links.length === 0 ? "No results." : ""}
       />
-
       <LinkList links={links} />
-
-      {links.length !== 0 && moreLinks && (
-        <button
-          onClick={nextPage}
+      {!isLoading && moreLinks ? (
+        <div
+          ref={observedRef}
           className="w-full text-white bg-blue-600 shadow-md capitalize"
         >
           more
-        </button>
-      )}
+        </div>
+      ) : null}
     </>
   );
 }
