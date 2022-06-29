@@ -48,13 +48,10 @@ func main() {
 	r.Run(":8080")
 }
 
-// TODO: too slow!!! create a table of unique channels
 func handleListChannels(ctx *gin.Context) {
-	results := []struct {
-		Window string
-	}{}
-	db.Table("logs").Distinct("window").Find(&results)
-	ctx.JSON(http.StatusOK, results)
+	var results []string
+	db.Table("current_channels").Pluck("channel", &results)
+	ctx.JSON(http.StatusOK, map[string]interface{}{"channels": results})
 }
 
 func handleSearchChannel(ctx *gin.Context) {
