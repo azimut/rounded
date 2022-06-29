@@ -2,33 +2,19 @@ import Anchor from "components/Anchor";
 import Search from "components/Search";
 import useLinks from "hooks/useLinks";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Links() {
-  const router = useRouter();
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [ready, setReady] = useState(false);
-  const { links, isLoading } = useLinks(search, page, ready);
+  const { links, isLoading, setPage } = useLinks(search);
 
-  useEffect(() => {
-    if (router.isReady) {
-      if (router.query.q) {
-        setSearch(router.query.q.toString());
-      }
-      setReady(true);
-    }
-  }, [router.isReady]);
+  const resetPage = useCallback(() => setPage(1), [setPage]);
+  const nextPage = useCallback(
+    () => setPage((currentPage) => currentPage + 1),
+    [setPage]
+  );
 
-  useEffect(() => {
-    if (!ready) return;
-    router.push(`/links?q=${encodeURIComponent(search)}`, undefined, {
-      shallow: true,
-    });
-  }, [search, ready]);
-
-  useEffect(() => setPage(1), [search]);
+  useEffect(() => resetPage(), [resetPage, search]);
 
   return (
     <>
@@ -54,7 +40,7 @@ export default function Links() {
       </div>
 
       <button
-        onClick={() => setPage(page + 1)}
+        onClick={nextPage}
         className="w-full text-white bg-blue-600 shadow-md capitalize"
       >
         more

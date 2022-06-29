@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { BACKEND_URL } from "services/settings";
 
 type Resp = {
@@ -16,25 +16,25 @@ function fetchBySearch(needle: string, page: number): string {
   }
 }
 
-export default function useLinks(
-  search: string,
-  page: number,
-  now: boolean
-): { links: Resp[]; isLoading: boolean } {
+export default function useLinks(search: string): {
+  links: Resp[];
+  isLoading: boolean;
+  setPage: Dispatch<SetStateAction<number>>;
+} {
+  const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [links, setLinks] = useState<Resp[]>([]);
   useEffect(() => {
-    if (!now) return;
     setLoading(true);
     fetch(fetchBySearch(search, page))
       .then((res) => res.json())
       .then((data: Resp[]) => {
         setLinks((prevLinks) => {
-          return page === 1 ? data : [...prevLinks, ...data];
+          return page === 1 ? data : prevLinks.concat(data);
         });
         setLoading(false);
       })
       .catch((e) => console.log(e));
-  }, [search, page, now]);
-  return { links, isLoading };
+  }, [search, page]);
+  return { links, isLoading, setPage };
 }
