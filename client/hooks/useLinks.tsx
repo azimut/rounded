@@ -22,11 +22,15 @@ export default function useLinks(search: string): {
   setPage: Dispatch<SetStateAction<number>>;
   moreLinks: boolean;
 } {
-  const [moreLinks, setMoreLinks] = useState(false);
+  const [moreLinks, setMoreLinks] = useState(true);
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [links, setLinks] = useState<LinkState[]>([]);
   useEffect(() => {
+    setMoreLinks(true);
+  }, [search]);
+  useEffect(() => {
+    if (!moreLinks) return;
     setLoading(true);
     fetchLinks(search, page)
       .then((data) => {
@@ -37,6 +41,6 @@ export default function useLinks(search: string): {
         setLoading(false);
       })
       .catch((e) => console.log(e));
-  }, [search, page]);
+  }, [search, page, moreLinks]);
   return { links, isLoading, setPage, moreLinks };
 }

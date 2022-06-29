@@ -27,7 +27,7 @@ export default function Links() {
 
       <LinkList links={links} />
 
-      {moreLinks && (
+      {links.length !== 0 && moreLinks && (
         <button
           onClick={nextPage}
           className="w-full text-white bg-blue-600 shadow-md capitalize"
