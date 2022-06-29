@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function Links() {
   const [search, setSearch] = useState("");
-  const { links, isLoading, setPage } = useLinks(search);
+  const { links, isLoading, setPage, moreLinks } = useLinks(search);
 
   const resetPage = useCallback(() => setPage(1), [setPage]);
   const nextPage = useCallback(
@@ -39,12 +39,14 @@ export default function Links() {
         ))}
       </div>
 
-      <button
-        onClick={nextPage}
-        className="w-full text-white bg-blue-600 shadow-md capitalize"
-      >
-        more
-      </button>
+      {moreLinks && (
+        <button
+          onClick={nextPage}
+          className="w-full text-white bg-blue-600 shadow-md capitalize"
+        >
+          more
+        </button>
+      )}
     </>
   );
 }
