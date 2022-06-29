@@ -1,7 +1,7 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { BACKEND_URL } from "services/settings";
 
-type LinkState = {
+export type LinkState = {
   MsgId: string;
   Link: string;
 };
