@@ -26,9 +26,8 @@ export default function useLinks(search: string): {
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [links, setLinks] = useState<LinkState[]>([]);
-  useEffect(() => {
-    setMoreLinks(true);
-  }, [search]);
+  useEffect(() => setPage(1), [search]);
+  useEffect(() => setMoreLinks(true), [search]);
   useEffect(() => {
     if (!moreLinks) return;
     setLoading(true);
