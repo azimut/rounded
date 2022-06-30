@@ -1,13 +1,13 @@
 * /links
-- [ ] Lazy scrolling
 - [ ] have links accept q= param and pass them down
 - [ ] pop-up on id (or link) showing original message information
 - [ ] Enumerate each result, instead of table id
-- [ ] show "MORE" conditionally (or disabled) if check on backend if there are more results
-- [ ] color highlight searched terms on results
 - [ ] drop down channel
 - [ ] regex or smart search
 - [ ] refactor
+- [X] Lazy scrolling
+- [X] show "MORE" conditionally (or disabled) if check on backend if there are more results
+- [X] color highlight searched terms on results
 - [X] on MORE do NOT scroll back up
 - [X] BUG: on hot reload it appends data sometimes
 - [X] keep searched term on bar
@@ -16,3 +16,9 @@
 - [X] parse search string, accept (%) and (/)
 * /images
 * /channel/
+* pagination
+ - useLinks(SEARCH) -> usePaginatedFetch(URL)
+       url
+ - <- data, page
+ - End of pages?
+   data.length === 0
