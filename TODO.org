@@ -1,9 +1,24 @@
-* /links
+* Export
+* Deploy
+** Local
+ - [ ] GIN serve the static exported page
+** Vercel
+ - [ ] upload a fraction of the db for a demo
+* Backend
+ - [ ] websocket....but to ZNC or Weechat socket
+ - [ ] current_channels to have the current count of msgs too?
+ - [ ] clean up trailing chars on links
+   - [ ] "closing parens"
+   - [ ] "double quotation mark"
+   - [ ] "markdown links"
+* Client
+** /links
 - [ ] have links accept q= param and pass them down
 - [ ] pop-up on id (or link) showing original message information
 - [ ] Enumerate each result, instead of table id
 - [ ] drop down channel
 - [ ] regex or smart search
+  https://www.postgresql.org/docs/9.3/functions-matching.html#FUNCTIONS-POSIX-REGEXP
 - [ ] refactor
 - [X] Lazy scrolling
 - [X] show "MORE" conditionally (or disabled) if check on backend if there are more results
@@ -14,11 +29,16 @@
 - [X] show search box on empty links
 - [X] show msg_id (link to /message/id)
 - [X] parse search string, accept (%) and (/)
-* /images
-* /channel/
-* pagination
- - useLinks(SEARCH) -> usePaginatedFetch(URL)
-       url
- - <- data, page
- - End of pages?
-   data.length === 0
+** /channel
+- [ ] List all channels
+- [ ] add stats/graphs for each channel
+- [ ] add calendar (a la' github) for activity of each channel
+** /channel/<CHAN>
+- [ ] lazy
+- [ ] channel selector
+- [ ] colorize nick
+- [ ] do NOT display nick on subsequent messages for the same person
+- [ ] date?
+  - add an external element to mark the end/beginning of a day, or time jumps
+  - add hour to each message?
+** /images
