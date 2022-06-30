@@ -13,18 +13,16 @@ export default function LinkList({
   const addHighlight = useCallback(
     (link: string) => {
       const pieces = link.split(search);
-      return pieces.map((p, i) => (
-        <>
-          {i == pieces.length - 1 ? (
-            <>{p}</>
-          ) : (
-            <>
-              {p}
-              <mark>{search}</mark>
-            </>
-          )}
-        </>
-      ));
+      return pieces.map((p, i) =>
+        i == pieces.length - 1 ? (
+          p
+        ) : (
+          <>
+            {p}
+            <mark>{search}</mark>
+          </>
+        )
+      );
     },
     [search]
   );
