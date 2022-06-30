@@ -1,7 +1,6 @@
 import { LinkState } from "hooks/useLinks";
 import Anchor from "components/Anchor";
 import Link from "next/link";
-import { useCallback } from "react";
 
 export default function LinkList({
   links,
@@ -10,22 +9,19 @@ export default function LinkList({
   links: LinkState[];
   search: string;
 }) {
-  const addHighlight = useCallback(
-    (link: string) => {
-      const pieces = link.split(search);
-      return pieces.map((p, i) =>
-        i == pieces.length - 1 ? (
-          p
-        ) : (
-          <>
-            {p}
-            <mark>{search}</mark>
-          </>
-        )
-      );
-    },
-    [search]
-  );
+  const addHighlight = (link: string) => {
+    const pieces = link.split(search);
+    return pieces.map((p, i) =>
+      i == pieces.length - 1 ? (
+        p
+      ) : (
+        <>
+          {p}
+          <mark>{search}</mark>
+        </>
+      )
+    );
+  };
   if (links.length === 0) return <p>No results</p>;
   return (
     <div className="grid grid-cols-12 items-center gap-px bg-slate-100">
