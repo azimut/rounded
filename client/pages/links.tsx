@@ -21,7 +21,7 @@ export default function Links() {
         title="links"
         idleMsg={!links || isLoading || links.length === 0 ? "No results." : ""}
       />
-      <LinkList links={links} />
+      <LinkList links={links} search={search} />
       {!isLoading && moreLinks ? (
         <div
           ref={ref}

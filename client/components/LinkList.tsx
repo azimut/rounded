@@ -1,8 +1,33 @@
 import { LinkState } from "hooks/useLinks";
 import Anchor from "components/Anchor";
 import Link from "next/link";
+import { useCallback } from "react";
 
-export default function LinkList({ links }: { links: LinkState[] }) {
+export default function LinkList({
+  links,
+  search,
+}: {
+  links: LinkState[];
+  search: string;
+}) {
+  const addHighlight = useCallback(
+    (link: string) => {
+      const pieces = link.split(search);
+      return pieces.map((p, i) => (
+        <>
+          {i == pieces.length - 1 ? (
+            <>{p}</>
+          ) : (
+            <>
+              {p}
+              <mark>{search}</mark>
+            </>
+          )}
+        </>
+      ));
+    },
+    [search]
+  );
   if (links.length === 0) return <p>No results</p>;
   return (
     <div className="grid grid-cols-12 items-center gap-px bg-slate-100">
@@ -13,7 +38,11 @@ export default function LinkList({ links }: { links: LinkState[] }) {
               {link.MsgId}
             </span>
           </Link>
-          <Anchor href={link.Link} otherClass="col-span-11 truncate" />
+          <div className="col-span-11 truncate">
+            <Anchor href={link.Link}>
+              {search === "" ? link.Link : addHighlight(link.Link)}
+            </Anchor>
+          </div>
         </>
       ))}
     </div>
