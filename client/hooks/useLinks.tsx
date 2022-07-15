@@ -20,26 +20,28 @@ export default function useLinks(search: string): {
   links: LinkState[];
   isLoading: boolean;
   setPage: Dispatch<SetStateAction<number>>;
-  moreLinks: boolean;
+  hasMorePages: boolean;
+  hasError: boolean;
 } {
-  const [moreLinks, setMoreLinks] = useState(true);
+  const [hasMorePages, setMorePages] = useState(true);
   const [isLoading, setLoading] = useState(false);
   const [links, setLinks] = useState<LinkState[]>([]);
   const [page, setPage] = useState(START_PAGE);
+  const [hasError, setHasError] = useState(false);
   useEffect(() => setPage(START_PAGE), [search]);
-  useEffect(() => setMoreLinks(true), [search]);
+  useEffect(() => setMorePages(true), [search]);
   useEffect(() => {
-    if (!moreLinks) return;
+    if (!hasMorePages) return;
     setLoading(true);
     fetchLinks(search, page)
-      .then((data) => {
+      .then((data) =>
         setLinks((prevLinks) => {
-          setMoreLinks(data.length === RESULTS_PER_PAGE);
+          setMorePages(data.length === RESULTS_PER_PAGE);
           return page === START_PAGE ? data : prevLinks.concat(data);
-        });
-        setLoading(false);
-      })
-      .catch((e) => console.log(e));
-  }, [search, page, moreLinks]);
-  return { links, isLoading, setPage, moreLinks };
+        })
+      )
+      .catch(() => setHasError(true))
+      .finally(() => setLoading(false));
+  }, [search, page, hasMorePages]);
+  return { links, isLoading, setPage, hasMorePages, hasError };
 }
