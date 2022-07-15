@@ -1,5 +1,5 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { BACKEND_URL } from "services/settings";
+import { BACKEND_URL, START_PAGE, RESULTS_PER_PAGE } from "services/settings";
 
 export type LinkState = {
   MsgId: string;
@@ -9,10 +9,10 @@ export type LinkState = {
 async function fetchLinks(search: string, page: number): Promise<LinkState[]> {
   const url =
     search === ""
-      ? `${BACKEND_URL}/links?page=${page}&page_size=50`
+      ? `${BACKEND_URL}/links?page=${page}&page_size=${RESULTS_PER_PAGE}`
       : `${BACKEND_URL}/links?q=${encodeURIComponent(
           search
-        )}&page=${page}&page_size=50`;
+        )}&page=${page}&page_size=${RESULTS_PER_PAGE}`;
   return fetch(url).then((res) => res.json());
 }
 
@@ -23,10 +23,10 @@ export default function useLinks(search: string): {
   moreLinks: boolean;
 } {
   const [moreLinks, setMoreLinks] = useState(true);
-  const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [links, setLinks] = useState<LinkState[]>([]);
-  useEffect(() => setPage(1), [search]);
+  const [page, setPage] = useState(START_PAGE);
+  useEffect(() => setPage(START_PAGE), [search]);
   useEffect(() => setMoreLinks(true), [search]);
   useEffect(() => {
     if (!moreLinks) return;
@@ -34,8 +34,8 @@ export default function useLinks(search: string): {
     fetchLinks(search, page)
       .then((data) => {
         setLinks((prevLinks) => {
-          setMoreLinks(data.length === 50);
-          return page === 1 ? data : prevLinks.concat(data);
+          setMoreLinks(data.length === RESULTS_PER_PAGE);
+          return page === START_PAGE ? data : prevLinks.concat(data);
         });
         setLoading(false);
       })
